@@ -1,0 +1,1355 @@
+/* ========================================
+   RESET E CONFIGURAÇÕES GLOBAIS
+   Remove estilos padrão do navegador
+   ======================================== */
+
+/* Aplica box-sizing border-box para todos os elementos */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* ========================================
+   CONFIGURAÇÕES DO CORPO DA PÁGINA
+   Define aparência geral e background
+   ======================================== */
+body {
+  /* Fonte moderna e altamente legível */
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+
+  /* Gradiente de fundo verde oliva sofisticado */
+  background: linear-gradient(135deg, #556b2f 0%, #6b8e23 50%, #556b2f 100%);
+  background-attachment: fixed;
+  background-size: 400% 400%;
+
+  /* Animação sutil do gradiente de fundo */
+  animation: gradientShift 15s ease infinite;
+
+  /* Cor do texto principal */
+  color: #1a1a1a;
+
+  /* Remove margens e paddings padrão */
+  margin: 0;
+  padding: 0;
+
+  /* Garante altura mínima da viewport */
+  min-height: 100vh;
+
+  /* Suavização de fontes para melhor renderização */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+
+  /* Posicionamento relativo para pseudo-elementos */
+  position: relative;
+}
+
+/* Animação do gradiente de fundo */
+@keyframes gradientShift {
+  0%,
+  100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+}
+
+/* Overlay de textura sutil sobre o fundo */
+body::before {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  /* Imagem de textura de barris de petróleo */
+  background-image: url("/placeholder.svg?height=100&width=100");
+  background-size: 200px 200px;
+  background-repeat: repeat;
+  opacity: 0.03;
+  z-index: -1;
+  pointer-events: none;
+}
+
+/* ========================================
+   TICKER DE MERCADO EM TEMPO REAL
+   Barra superior com preços rolando
+   ======================================== */
+.market-ticker {
+  background: linear-gradient(135deg, #1a1a1a 0%, #2c2c2c 100%);
+  color: white;
+  padding: 0.75rem 0;
+  overflow: hidden;
+  position: relative;
+  border-bottom: 2px solid #ffd700;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+}
+
+/* Conteúdo do ticker com animação de rolagem */
+.ticker-content {
+  display: flex;
+  gap: 3rem;
+  animation: tickerScroll 30s linear infinite;
+  white-space: nowrap;
+}
+
+/* Animação de rolagem contínua */
+@keyframes tickerScroll {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+/* Item individual do ticker */
+.ticker-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-weight: 600;
+  font-size: 0.95rem;
+}
+
+/* Preço no ticker */
+.ticker-price {
+  font-weight: 800;
+  color: #ffd700;
+  font-size: 1.05rem;
+}
+
+/* Variação no ticker */
+.ticker-change {
+  padding: 0.2rem 0.5rem;
+  border-radius: 4px;
+  font-size: 0.85rem;
+  font-weight: 700;
+}
+
+/* Variação positiva no ticker */
+.ticker-change.positive {
+  color: #00ff00;
+  background: rgba(0, 255, 0, 0.15);
+}
+
+/* Variação negativa no ticker */
+.ticker-change.negative {
+  color: #ff4444;
+  background: rgba(255, 68, 68, 0.15);
+}
+
+/* Separador do ticker */
+.ticker-separator {
+  color: rgba(255, 255, 255, 0.3);
+  font-size: 1.2rem;
+}
+
+/* ========================================
+   CONTADOR DE ATUALIZAÇÕES
+   Mostra última atualização dos dados
+   ======================================== */
+.update-counter {
+  font-size: 0.85rem;
+  color: rgba(26, 26, 26, 0.7);
+  font-weight: 500;
+  margin-left: 1rem;
+  padding: 0.3rem 0.8rem;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 12px;
+}
+
+/* ========================================
+   BANNER HERO - SEÇÃO DE DESTAQUE
+   Imagem grande no topo com overlay
+   ======================================== */
+.hero-banner {
+  position: relative;
+  width: 100%;
+  height: 500px;
+  overflow: hidden;
+  /* Sombra inferior para transição suave */
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+}
+
+/* Imagem de fundo do hero */
+.hero-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  /* Animação de zoom sutil */
+  animation: heroZoom 20s ease-in-out infinite alternate;
+}
+
+/* Animação de zoom da imagem hero */
+@keyframes heroZoom {
+  0% {
+    transform: scale(1);
+  }
+  100% {
+    transform: scale(1.1);
+  }
+}
+
+/* Overlay com gradiente sobre a imagem */
+.hero-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  /* Gradiente sofisticado com transparência */
+  background: linear-gradient(
+    135deg,
+    rgba(85, 107, 47, 0.9) 0%,
+    rgba(255, 215, 0, 0.8) 50%,
+    rgba(85, 107, 47, 0.9) 100%
+  );
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 2rem;
+}
+
+/* Título principal do hero */
+.hero-title {
+  font-size: 4rem;
+  font-weight: 900;
+  color: white;
+  text-shadow: 3px 3px 8px rgba(0, 0, 0, 0.5);
+  margin-bottom: 1rem;
+  letter-spacing: 2px;
+  /* Animação de entrada de cima */
+  animation: fadeInDown 1s ease;
+}
+
+/* Subtítulo do hero */
+.hero-subtitle {
+  font-size: 1.8rem;
+  color: white;
+  text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.5);
+  margin-bottom: 2rem;
+  font-weight: 300;
+  /* Animação de entrada de baixo */
+  animation: fadeInUp 1s ease 0.2s both;
+}
+
+/* Container de estatísticas no hero */
+.hero-stats {
+  display: flex;
+  gap: 3rem;
+  margin-top: 2rem;
+  /* Animação de fade in */
+  animation: fadeIn 1s ease 0.4s both;
+}
+
+/* Item individual de estatística */
+.stat-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 1rem 2rem;
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: 12px;
+  backdrop-filter: blur(10px);
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  transition: all 0.3s ease;
+}
+
+/* Efeito hover nas estatísticas */
+.stat-item:hover {
+  transform: translateY(-5px);
+  background: rgba(255, 255, 255, 0.25);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+}
+
+/* Número da estatística */
+.stat-number {
+  font-size: 2rem;
+  font-weight: 800;
+  color: white;
+}
+
+/* Label da estatística */
+.stat-label {
+  font-size: 0.9rem;
+  color: rgba(255, 255, 255, 0.9);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+/* Animações de entrada */
+@keyframes fadeInDown {
+  from {
+    opacity: 0;
+    transform: translateY(-40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* ========================================
+   CABEÇALHO FIXO
+   Barra superior com título e status
+   ======================================== */
+header {
+  /* Gradiente dourado vibrante */
+  background: linear-gradient(135deg, #ffd700 0%, #ffed4e 50%, #ffa500 100%);
+
+  /* Centralização do conteúdo */
+  text-align: center;
+
+  /* Espaçamento interno generoso */
+  padding: 2rem 2rem;
+
+  /* Sombra profunda para destaque */
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+
+  /* Fixo no topo ao rolar */
+  position: sticky;
+  top: 0;
+  z-index: 100;
+
+  /* Layout flexível */
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+
+  /* Borda inferior decorativa */
+  border-bottom: 4px solid rgba(85, 107, 47, 0.3);
+}
+
+/* Container do conteúdo do cabeçalho */
+.header-content {
+  flex: 1;
+  min-width: 250px;
+}
+
+/* Título principal do cabeçalho */
+header h1 {
+  color: #1a1a1a;
+  font-size: 2.2rem;
+  font-weight: 800;
+  margin-bottom: 0.5rem;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.15);
+  letter-spacing: 1px;
+}
+
+/* Subtítulo do cabeçalho */
+.subtitle {
+  color: #2c2c2c;
+  font-size: 1.1rem;
+  font-weight: 500;
+  opacity: 0.9;
+}
+
+/* Indicador de status da conexão */
+.status-indicator {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  background: rgba(255, 255, 255, 0.4);
+  padding: 0.75rem 1.5rem;
+  border-radius: 25px;
+  backdrop-filter: blur(10px);
+  border: 2px solid rgba(255, 255, 255, 0.6);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+}
+
+/* Efeito hover no indicador de status */
+.status-indicator:hover {
+  transform: scale(1.05);
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
+}
+
+/* Ponto de status animado (verde pulsante) */
+.status-dot {
+  width: 12px;
+  height: 12px;
+  background: #00ff00;
+  border-radius: 50%;
+  box-shadow: 0 0 10px #00ff00;
+  /* Animação de pulsação contínua */
+  animation: pulse 2s infinite;
+}
+
+/* Animação de pulsação do status */
+@keyframes pulse {
+  0%,
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.6;
+    transform: scale(1.2);
+  }
+}
+
+/* Texto do indicador de status */
+.status-text {
+  color: #1a1a1a;
+  font-size: 1rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+/* ========================================
+   CONTAINER PRINCIPAL
+   Grid responsivo para todas as seções
+   ======================================== */
+.container {
+  /* Largura máxima para conteúdo */
+  max-width: 1600px;
+
+  /* Centralização horizontal */
+  margin: 3rem auto;
+
+  /* Espaçamento interno */
+  padding: 0 2rem;
+
+  /* Grid responsivo com colunas automáticas */
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+  gap: 2rem;
+}
+
+/* ========================================
+   CARDS (SEÇÕES DE CONTEÚDO)
+   Containers para cada seção da página
+   ======================================== */
+.card {
+  /* Fundo branco semitransparente */
+  background: rgba(255, 255, 255, 0.98);
+
+  /* Bordas arredondadas suaves */
+  border-radius: 16px;
+
+  /* Espaçamento interno */
+  padding: 2rem;
+
+  /* Sombra profunda para profundidade */
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+
+  /* Transições suaves para interações */
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+
+  /* Borda sutil */
+  border: 1px solid rgba(255, 215, 0, 0.2);
+
+  /* Posicionamento relativo para pseudo-elementos */
+  position: relative;
+  overflow: hidden;
+}
+
+/* Brilho decorativo no topo dos cards */
+.card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, #ffd700, #ffa500, #ffd700);
+  background-size: 200% 100%;
+  animation: shimmer 3s linear infinite;
+}
+
+/* Adicionando container 3D para barris de petróleo */
+.card::after {
+  content: "";
+  position: absolute;
+  bottom: -20px;
+  right: -20px;
+  width: 150px;
+  height: 150px;
+  background: url("/placeholder.svg?height=150&width=150") no-repeat center;
+  background-size: contain;
+  opacity: 0.05;
+  transform: rotate(-15deg);
+  pointer-events: none;
+}
+
+/* Animação de brilho */
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+/* Animação de entrada dos cards */
+.card-animated {
+  animation: cardSlideIn 0.6s ease-out;
+}
+
+@keyframes cardSlideIn {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Efeito hover nos cards */
+.card:hover {
+  transform: translateY(-8px) scale(1.02);
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
+  border-color: rgba(255, 215, 0, 0.5);
+}
+
+/* Card de largura completa */
+.card-full-width {
+  grid-column: 1 / -1;
+}
+
+/* Cabeçalho das seções */
+.section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+  padding-bottom: 1.5rem;
+  /* Borda inferior com gradiente */
+  border-bottom: 3px solid transparent;
+  border-image: linear-gradient(90deg, #ffd700, #ffa500) 1;
+}
+
+/* Títulos das seções */
+.section-header h2 {
+  color: #2c2c2c;
+  font-size: 1.8rem;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+/* Badge decorativo */
+.badge {
+  background: linear-gradient(135deg, #ffd700, #ffa500);
+  color: #1a1a1a;
+  padding: 0.4rem 1rem;
+  border-radius: 20px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  box-shadow: 0 2px 8px rgba(255, 165, 0, 0.4);
+}
+
+/* ========================================
+   BOTÕES
+   Estilos para todos os botões da aplicação
+   ======================================== */
+button {
+  /* Gradiente dourado vibrante */
+  background: linear-gradient(135deg, #ffd700 0%, #ffa500 100%);
+
+  /* Cor do texto */
+  color: #1a1a1a;
+
+  /* Remove borda padrão */
+  border: none;
+
+  /* Espaçamento interno */
+  padding: 1rem 2rem;
+
+  /* Bordas arredondadas */
+  border-radius: 10px;
+
+  /* Cursor de ponteiro */
+  cursor: pointer;
+
+  /* Tipografia em negrito */
+  font-weight: 700;
+  font-size: 1rem;
+
+  /* Transições suaves */
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+
+  /* Sombra inicial */
+  box-shadow: 0 4px 15px rgba(255, 165, 0, 0.3);
+
+  /* Espaçamento entre letras */
+  letter-spacing: 0.5px;
+
+  /* Posicionamento relativo para efeitos */
+  position: relative;
+  overflow: hidden;
+}
+
+/* Efeito de brilho ao passar o mouse */
+button::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.5);
+  transform: translate(-50%, -50%);
+  transition: width 0.6s, height 0.6s;
+}
+
+button:hover::before {
+  width: 300px;
+  height: 300px;
+}
+
+/* Efeito hover nos botões */
+button:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 25px rgba(255, 165, 0, 0.5);
+  background: linear-gradient(135deg, #ffa500 0%, #ffd700 100%);
+}
+
+/* Efeito active (ao clicar) */
+button:active {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 15px rgba(255, 165, 0, 0.4);
+}
+
+/* Ícone dentro do botão */
+.btn-icon {
+  display: inline-block;
+  margin-right: 0.5rem;
+  font-size: 1.2rem;
+}
+
+/* Botão de atualizar (menor) */
+.refresh-btn {
+  padding: 0.75rem 1.5rem;
+  font-size: 0.95rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+/* ========================================
+   GRID DE PREÇOS
+   Layout para cards de preços
+   ======================================== */
+.price-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1.5rem;
+}
+
+/* Card individual de preço */
+.price-card {
+  /* Gradiente de fundo sutil */
+  background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+
+  /* Espaçamento interno */
+  padding: 2rem;
+
+  /* Bordas arredondadas */
+  border-radius: 12px;
+
+  /* Borda esquerda colorida */
+  border-left: 5px solid #ffd700;
+
+  /* Transições suaves */
+  transition: all 0.3s ease;
+
+  /* Posicionamento relativo */
+  position: relative;
+  overflow: hidden;
+
+  /* Sombra inicial */
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Ícone decorativo de fundo */
+.price-card::before {
+  content: "";
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  width: 80px;
+  height: 80px;
+  background: url("/placeholder.svg?height=80&width=80") no-repeat center;
+  background-size: contain;
+  opacity: 0.12;
+  transform: rotate(-15deg);
+  animation: float3D 3s ease-in-out infinite;
+}
+
+/* Animação de flutuação 3D */
+@keyframes float3D {
+  0%,
+  100% {
+    transform: rotate(-15deg) translateY(0px);
+  }
+  50% {
+    transform: rotate(-15deg) translateY(-10px);
+  }
+}
+
+/* Efeito hover no card de preço */
+.price-card:hover {
+  transform: translateY(-8px) scale(1.05);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.2);
+  border-left-width: 8px;
+}
+
+/* Adicionando animação de pulso quando o preço muda */
+.price-card.price-updating {
+  animation: priceFlash 0.5s ease;
+}
+
+@keyframes priceFlash {
+  0%,
+  100% {
+    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+  }
+  50% {
+    background: linear-gradient(135deg, #fff9e6 0%, #fffacd 100%);
+  }
+}
+
+/* Nome do símbolo */
+.price-symbol {
+  font-size: 1.3rem;
+  font-weight: 800;
+  color: #2c2c2c;
+  margin-bottom: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  /* Adicionando display flex para incluir seta de tendência */
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+/* Seta de tendência animada */
+.trend-arrow {
+  font-size: 1.5rem;
+  animation: bounce 1s ease-in-out infinite;
+}
+
+.trend-arrow.up {
+  color: #28a745;
+  animation: bounceUp 1s ease-in-out infinite;
+}
+
+.trend-arrow.down {
+  color: #dc3545;
+  animation: bounceDown 1s ease-in-out infinite;
+}
+
+@keyframes bounceUp {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-5px);
+  }
+}
+
+@keyframes bounceDown {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(5px);
+  }
+}
+
+/* Valor do preço */
+.price-value {
+  font-size: 2.2rem;
+  font-weight: 800;
+  color: #556b2f;
+  margin-bottom: 0.75rem;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+  /* Adicionando transição suave para mudanças de valor */
+  transition: all 0.3s ease;
+}
+
+/* Animação quando o valor aumenta */
+.price-value.price-up {
+  color: #28a745;
+  animation: priceUp 0.5s ease;
+}
+
+/* Animação quando o valor diminui */
+.price-value.price-down {
+  color: #dc3545;
+  animation: priceDown 0.5s ease;
+}
+
+@keyframes priceUp {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.15);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+@keyframes priceDown {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(0.95);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+/* Variação do preço */
+.price-change {
+  font-size: 1rem;
+  font-weight: 700;
+  padding: 0.4rem 0.8rem;
+  border-radius: 6px;
+  display: inline-block;
+  /* Adicionando transição para mudanças */
+  transition: all 0.3s ease;
+}
+
+/* Variação positiva (alta) */
+.price-change.positive {
+  color: #28a745;
+  background: rgba(40, 167, 69, 0.1);
+  /* Adicionando borda e sombra */
+  border: 1px solid rgba(40, 167, 69, 0.3);
+  box-shadow: 0 2px 8px rgba(40, 167, 69, 0.2);
+}
+
+/* Variação negativa (baixa) */
+.price-change.negative {
+  color: #dc3545;
+  background: rgba(220, 53, 69, 0.1);
+  /* Adicionando borda e sombra */
+  border: 1px solid rgba(220, 53, 69, 0.3);
+  box-shadow: 0 2px 8px rgba(220, 53, 69, 0.2);
+}
+
+/* Adicionando mini gráfico de tendência (sparkline) */
+.price-sparkline {
+  margin-top: 1rem;
+  height: 40px;
+  position: relative;
+  background: rgba(0, 0, 0, 0.03);
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+.sparkline-canvas {
+  width: 100%;
+  height: 100%;
+}
+
+/* ========================================
+   GRÁFICO 3D
+   Container para visualização Plotly
+   ======================================== */
+.chart-container {
+  position: relative;
+  /* Altura aumentada para melhor visualização */
+  height: 550px;
+  margin-top: 1.5rem;
+  /* Fundo sutil */
+  background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+  border-radius: 12px;
+  padding: 1rem;
+  /* Sombra interna */
+  box-shadow: inset 0 2px 10px rgba(0, 0, 0, 0.05);
+}
+
+/* Container do gráfico Plotly */
+#chart {
+  width: 100% !important;
+  height: 100% !important;
+  border-radius: 8px;
+}
+
+/* Legenda do gráfico */
+.chart-legend {
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  margin-top: 1.5rem;
+  padding: 1rem;
+  background: rgba(248, 249, 250, 0.5);
+  border-radius: 8px;
+  flex-wrap: wrap;
+}
+
+/* Item da legenda */
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: #2c2c2c;
+}
+
+/* Cor da legenda */
+.legend-color {
+  width: 20px;
+  height: 20px;
+  border-radius: 4px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+/* ========================================
+   FORMULÁRIO DE COMPRA
+   Estilos para inputs e campos
+   ======================================== */
+.purchase-form {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+/* Grupo de campos do formulário */
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+/* Labels do formulário */
+.form-group label {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: #2c2c2c;
+  font-weight: 700;
+}
+
+/* Texto principal do label */
+.label-text {
+  font-size: 1.1rem;
+}
+
+/* Dica do label */
+.label-hint {
+  font-size: 0.9rem;
+  color: #6c757d;
+  font-weight: 400;
+  font-style: italic;
+}
+
+/* Campos de input */
+input[type="text"],
+input[type="number"] {
+  padding: 1rem;
+  border: 2px solid #dee2e6;
+  border-radius: 8px;
+  font-size: 1.05rem;
+  transition: all 0.3s ease;
+  background: white;
+  font-family: inherit;
+}
+
+/* Placeholder dos inputs */
+input::placeholder {
+  color: #adb5bd;
+  font-style: italic;
+}
+
+/* Foco nos inputs */
+input:focus {
+  outline: none;
+  border-color: #ffd700;
+  box-shadow: 0 0 0 4px rgba(255, 215, 0, 0.15);
+  transform: translateY(-2px);
+}
+
+/* Botão de submissão */
+.submit-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  padding: 1.25rem;
+  font-size: 1.2rem;
+  margin-top: 1rem;
+}
+
+/* ========================================
+   SUGESTÃO DA IA
+   Container para recomendações inteligentes
+   ======================================== */
+.ai-suggestion {
+  margin-top: 2rem;
+  padding: 1.5rem;
+  /* Gradiente azul suave */
+  background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%);
+  border-radius: 12px;
+  border-left: 5px solid #2196f3;
+  display: none;
+  box-shadow: 0 4px 15px rgba(33, 150, 243, 0.2);
+}
+
+/* Mostra quando há conteúdo */
+.ai-suggestion:not(:empty) {
+  display: block;
+  /* Animação de entrada deslizante */
+  animation: slideIn 0.5s ease;
+}
+
+/* Animação de entrada */
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateX(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* ========================================
+   HISTÓRICO DE COMPRAS
+   Lista de transações realizadas
+   ======================================== */
+.history-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+/* Item individual do histórico */
+.history-item {
+  padding: 1.5rem;
+  /* Fundo sutil */
+  background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+  border-radius: 10px;
+  border-left: 4px solid #556b2f;
+  /* Grid responsivo para informações */
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 1.5rem;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+/* Efeito hover no item do histórico */
+.history-item:hover {
+  transform: translateX(8px);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+  border-left-width: 6px;
+}
+
+/* Estado vazio */
+.empty-state {
+  text-align: center;
+  color: #6c757d;
+  padding: 3rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+}
+
+/* Ícone do estado vazio */
+.empty-icon {
+  font-size: 3rem;
+  opacity: 0.5;
+}
+
+/* Texto pequeno do estado vazio */
+.empty-state small {
+  display: block;
+  font-size: 0.9rem;
+  margin-top: 0.5rem;
+  opacity: 0.7;
+}
+
+/* ========================================
+   INDICADOR DE CARREGAMENTO
+   Spinner animado
+   ======================================== */
+.loading {
+  text-align: center;
+  padding: 3rem;
+  color: #6c757d;
+  font-size: 1.2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+/* Spinner de carregamento */
+.loading-spinner {
+  width: 50px;
+  height: 50px;
+  border: 5px solid #f3f3f3;
+  border-top: 5px solid #ffd700;
+  border-radius: 50%;
+  /* Animação de rotação */
+  animation: spin 1s linear infinite;
+}
+
+/* Animação de rotação */
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+/* ========================================
+   RODAPÉ
+   Informações finais da página
+   ======================================== */
+footer {
+  /* Fundo escuro semitransparente */
+  background: rgba(0, 0, 0, 0.3);
+  backdrop-filter: blur(10px);
+  color: white;
+  text-align: center;
+  padding: 3rem 2rem;
+  margin-top: 4rem;
+  border-top: 3px solid rgba(255, 215, 0, 0.3);
+}
+
+/* Container do conteúdo do rodapé */
+.footer-content {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+/* Texto principal do rodapé */
+.footer-main {
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+
+/* Nota do rodapé */
+.footer-note {
+  font-size: 0.95rem;
+  opacity: 0.9;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+/* Ícone do rodapé */
+.footer-icon {
+  font-size: 1.2rem;
+}
+
+/* Links do rodapé */
+.footer-links {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  margin-top: 1rem;
+  flex-wrap: wrap;
+}
+
+/* Link individual do rodapé */
+.footer-link {
+  color: white;
+  text-decoration: none;
+  font-weight: 500;
+  transition: all 0.3s ease;
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+}
+
+/* Efeito hover nos links */
+.footer-link:hover {
+  color: #ffd700;
+  background: rgba(255, 215, 0, 0.1);
+  transform: translateY(-2px);
+}
+
+/* Separador entre links */
+.footer-separator {
+  color: rgba(255, 255, 255, 0.5);
+}
+
+/* Seletor de período */
+.period-selector {
+  padding: 0.75rem 1.5rem;
+  border: 2px solid #dee2e6;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 600;
+  background: white;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  color: #2c2c2c;
+}
+
+/* Foco no seletor */
+.period-selector:focus {
+  outline: none;
+  border-color: #ffd700;
+  box-shadow: 0 0 0 3px rgba(255, 215, 0, 0.15);
+}
+
+/* ========================================
+   RESPONSIVIDADE
+   Adaptações para diferentes tamanhos de tela
+   ======================================== */
+
+/* Tablets (768px ou menos) */
+@media (max-width: 768px) {
+  /* Reduz tamanho do título do hero */
+  .hero-title {
+    font-size: 2.5rem;
+  }
+
+  /* Reduz tamanho do subtítulo do hero */
+  .hero-subtitle {
+    font-size: 1.3rem;
+  }
+
+  /* Empilha estatísticas verticalmente */
+  .hero-stats {
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  /* Reduz altura do banner hero */
+  .hero-banner {
+    height: 350px;
+  }
+
+  /* Reduz tamanho do título do cabeçalho */
+  header h1 {
+    font-size: 1.7rem;
+  }
+
+  /* Grid de uma coluna */
+  .container {
+    grid-template-columns: 1fr;
+    padding: 0 1rem;
+    margin: 2rem auto;
+  }
+
+  /* Empilha cabeçalho da seção verticalmente */
+  .section-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+
+  /* Reduz altura do gráfico */
+  .chart-container {
+    height: 400px;
+  }
+
+  /* Empilha legenda verticalmente */
+  .chart-legend {
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+}
+
+/* Smartphones (480px ou menos) */
+@media (max-width: 480px) {
+  /* Reduz padding do cabeçalho */
+  header {
+    padding: 1.5rem 1rem;
+  }
+
+  /* Reduz ainda mais o título */
+  header h1 {
+    font-size: 1.4rem;
+  }
+
+  /* Reduz padding dos cards */
+  .card {
+    padding: 1.5rem;
+  }
+
+  /* Grid de preços em uma coluna */
+  .price-grid {
+    grid-template-columns: 1fr;
+  }
+
+  /* Reduz altura do gráfico */
+  .chart-container {
+    height: 350px;
+  }
+
+  /* Reduz altura do banner hero */
+  .hero-banner {
+    height: 300px;
+  }
+
+  /* Reduz tamanho do título do hero */
+  .hero-title {
+    font-size: 1.8rem;
+  }
+
+  /* Reduz tamanho do subtítulo do hero */
+  .hero-subtitle {
+    font-size: 1.1rem;
+  }
+
+  /* Reduz tamanho das estatísticas */
+  .stat-number {
+    font-size: 1.5rem;
+  }
+
+  /* Reduz padding dos botões */
+  button {
+    padding: 0.875rem 1.5rem;
+  }
+}
