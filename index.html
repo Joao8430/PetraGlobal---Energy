@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="pt-BR"> <!--Linguagem do projeto-->
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Dashboard profissional para monitoramento de preços do petróleo em tempo real">
+    <meta name="author" content="PetraGlobal Energy">
+    <meta name="theme-color" content="#ffd700">
+    <title>PetraGlobal Energy - Dashboard de Petróleo</title><!-- Título da página exibido na aba do navegador -->
+    <link rel="stylesheet" href="style.css"> <!--Importação do arquivo Style.css-->
+    <script src="https://cdn.plot.ly/plotly-2.27.0.min.js"></script><!-- Biblioteca Plotly.js para gráficos 3D interativos -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script><!-- Adicionando biblioteca Three.js para renderização 3D -->
+    <link rel="preconnect" href="https://fonts.googleapis.com"> <!-- Pré-carregamento de fontes para melhor performance -->
+</head> <!--Fechamento da tag head-->
+<body>
+    <div class="market-ticker"> <!-- Adicionando ticker de mercado em tempo real no topo -->
+        <div class="ticker-content" id="ticker-content">
+            <span class="ticker-item">🛢️ BRENT: <span class="ticker-price" data-symbol="BRENT">$85.50</span> <span class="ticker-change positive">+0.5%</span></span>
+            <span class="ticker-item">🛢️ WTI: <span class="ticker-price" data-symbol="WTI">$82.75</span> <span class="ticker-change negative">-0.3%</span></span>
+            <span class="ticker-item">🛢️ OPEC: <span class="ticker-price" data-symbol="OPEC">$84.20</span> <span class="ticker-change positive">+0.8%</span></span>
+            <span class="ticker-separator">•</span>
+            <span class="ticker-item">🛢️ BRENT: <span class="ticker-price" data-symbol="BRENT">$85.50</span> <span class="ticker-change positive">+0.5%</span></span>
+            <span class="ticker-item">🛢️ WTI: <span class="ticker-price" data-symbol="WTI">$82.75</span> <span class="ticker-change negative">-0.3%</span></span>
+            <span class="ticker-item">🛢️ OPEC: <span class="ticker-price" data-symbol="OPEC">$84.20</span> <span class="ticker-change positive">+0.8%</span></span>
+        </div>
+    </div>
+    <div class="hero-banner">
+        <!-- Imagem de fundo da plataforma de petróleo -->
+        <img src="tipos-de-plataforma-de-petroleo-offshore.webp" 
+             alt="Plataforma de petróleo ao pôr do sol" 
+             class="hero-image"> 
+        
+        <!-- Overlay com gradiente para melhor legibilidade do texto -->
+        <div class="hero-overlay">
+            <h1 class="hero-title">🛢️ PetraGlobal Energy</h1> <!--Texto central da tela da plataforma--> 
+            <p class="hero-subtitle">Monitoramento Inteligente de Preços do Petróleo</p> <!--Subtitulo da plataforma-->
+            <div class="hero-stats"> 
+                <div class="stat-item">
+                    <span class="stat-number">24/7</span> <!--Caixinha onde está escrito 24/7 na tela-->
+                    <span class="stat-label">Monitoramento</span> <!--Caixinha escrito monitoramento -->
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number">3</span> <!--Numero onde fica dentro da caixinha-->
+                    <span class="stat-label">Mercados</span>
+                </div>
+                <div class="stat-item"> 
+                    <span class="stat-number">Real-Time</span>
+                    <span class="stat-label">Dados</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <header> <!--Cabeçalho fixo da aplicação que fica abaixo do menu original-->
+        <div class="header-content"><!-- Container do conteúdo principal do cabeçalho -->
+            <h1>🛢️ PetraGlobal Energy</h1>
+            <p class="subtitle">Dashboard de Preços do Petróleo em Tempo Real</p>
+        </div>
+        
+        <!-- Indicador visual de status da conexão -->
+        <div class="status-indicator">
+            <span class="status-dot"></span>
+            <span class="status-text">Sistema Online</span>
+            <!-- Adicionando contador de atualizações em tempo real -->
+            <span class="update-counter" id="update-counter">Última atualização: agora</span>
+        </div>
+    </header>
+
+    <main class="container">
+        <section id="precos" class="card card-animated">
+            <div class="section-header"> <!-- Cabeçalho da seção com título e botão de atualização -->
+                <h2>💰 Preços Atuais</h2>
+                <button class="refresh-btn" onclick="carregarPrecos()" title="Atualizar preços manualmente"> <!--Botão para clicar e atualizar-->
+                    <div class="btn-icon">🔄</div> <!--Emogi-->
+                    <div class="btn-text">Atualizar</div> <!--Escrito dentro da caixinha-->
+                </button>
+            </div>
+            
+            <!-- Grid onde os cards de preços serão inseridos dinamicamente -->
+            <div id="lista-precos" class="price-grid">
+                <!-- Indicador de carregamento inicial -->
+                <div class="loading">
+                    <div class="loading-spinner"></div>
+                    <p>Carregando preços do mercado...</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="grafico" class="card card-animated card-full-width">
+            <div class="section-header"> <!-- Cabeçalho com seletor de período -->
+                <h2>📈 Análise de Tendências 3D</h2> <!--Texto do seletor de cabeçalho-->
+                <select id="periodo-grafico" class="period-selector">
+                    <option value="7">📅 Últimos 7 dias</option>
+                    <option value="30">📅 Últimos 30 dias</option>
+                    <option value="90">📅 Últimos 90 dias</option>
+                </select>
+            </div>
+            
+            <!-- Container do gráfico Plotly 3D -->
+            <div class="chart-container">
+                <div id="chart"></div>
+            </div>
+            
+            <div class="chart-legend"><!-- Legenda informativa do gráfico -->
+                <span class="legend-item">
+                    <span class="legend-color" style="background: #28a745;"></span>
+                    Alta de preço
+                </span>
+                <span class="legend-item">
+                    <span class="legend-color" style="background: #dc3545;"></span>
+                    Baixa de preço
+                </span>
+                <span class="legend-item">
+                    <span class="legend-color" style="background: #ffc107;"></span>
+                    Estável
+                </span>
+            </div>
+        </section>
+
+        <section id="compra" class="card card-animated">
+            <!-- Cabeçalho da seção -->
+            <div class="section-header">
+                <h2>🛒 Realizar Compra</h2>
+            </div>
+            
+            <form id="form-compra" class="purchase-form"> <!-- Formulário de compra com validação -->
+                <div class="form-group"><!-- Campo para seleção do símbolo do petróleo --> 
+                    <label for="simbolo">
+                        <span class="label-text">Tipo de Petróleo</span>
+                        <span class="label-hint">Selecione o mercado</span>
+                    </label>
+                    <input 
+                        type="text" 
+                        id="simbolo" 
+                        placeholder="Ex: BRENT, WTI, OPEC" 
+                        required
+                        autocomplete="off"
+                        list="simbolos-sugeridos">
+
+                    <datalist id="simbolos-sugeridos"> <!-- Lista de sugestões para autocompletar -->
+                        <option value="BRENT">
+                        <option value="WTI">
+                        <option value="OPEC">
+                    </datalist>
+                </div>
+                
+                <!-- Campo para quantidade de barris -->
+                <div class="form-group">
+                    <label for="quantidade">
+                        <span class="label-text">Quantidade</span>
+                        <span class="label-hint">Número de barris</span>
+                    </label>
+                    <input 
+                        type="number" 
+                        id="quantidade" 
+                        placeholder="Digite a quantidade de barris" 
+                        min="1"
+                        step="1"
+                        required
+                    >
+                </div>
+                
+                <!-- Botão de submissão com ícone -->
+                <button type="submit" class="submit-btn"> <!--Botão de confirmar compra--> 
+                    <span class="btn-icon">✓</span>
+                    <span class="btn-text">Confirmar Compra</span> <!--Negócio que fica escrito dentro da caixinha-->
+                </button> <!--Fechamento da tag button-->
+            </form>
+            
+            <div id="sugestao-ia" class="ai-suggestion"> <!-- Área para exibir sugestões inteligentes da IA -->
+                <!-- Sugestões serão inseridas aqui dinamicamente -->
+            </div>
+        </section>
+
+        <section id="historico" class="card card-animated card-full-width"> <!--Histórico de compras--> 
+            <div class="section-header"> <!--Caixinha com histórico das ultimas compras-->
+                <h2>📋 Histórico de Transações</h2>
+                <span class="badge">Últimas compras</span>
+            </div>
+            
+            <!-- Container da lista de histórico -->
+            <div id="lista-historico" class="history-list">
+                <!-- Estado vazio inicial -->
+                <p class="empty-state">
+                    <span class="empty-icon">📦</span>
+                    <span>Nenhuma compra realizada ainda</span>
+                    <small>Suas transações aparecerão aqui</small>
+                </p>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <p class="footer-main">&copy; 2025 PetraGlobal Energy. Todos os direitos reservados.</p>
+            <p class="footer-note">
+                <span class="footer-icon">ℹ️</span>
+                Dados fornecidos em tempo real para fins informativos e educacionais
+            </p>
+            <div class="footer-links">
+                <a href="#" class="footer-link">Termos de Uso</a>
+                <span class="footer-separator">•</span>
+                <a href="#" class="footer-link">Política de Privacidade</a>
+                <span class="footer-separator">•</span>
+                <a href="#" class="footer-link">Contato</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Importação do arquivo JavaScript com toda a lógica da aplicação -->
+    <script src="script.js"></script>
+</body> <!--Fechamento da tag Body-->
+</html> <!--Fechamento da tag HTML-->
